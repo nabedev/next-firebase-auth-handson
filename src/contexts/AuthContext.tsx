@@ -3,13 +3,13 @@ import { createContext, FC, useState, useContext, useEffect } from "react"
 
 import { auth } from "../firebase"
 
-type AuthContextProps = {
-  user: User | null | undefined
+export type AuthContextProps = {
+  usre: User | null | undefined
 }
 
-const AuthContext = createContext<AuthContextProps>({ user: undefined })
+export const AuthContext = createContext<AuthContextProps>({ user: undefined })
 
-const AuthProvider: FC = ({children}) => {
+export const AuthProvider: FC = ({children}) => {
   const [user, setUser] = useState<User | null | undefined>(undefined)
 
   useEffect(() => {
@@ -23,8 +23,3 @@ const AuthProvider: FC = ({children}) => {
   </AuthContext.Provider>
 }
 
-export const AuthProvider
-
-export function useAuth () {
-  return useContext(AuthContext)
-}

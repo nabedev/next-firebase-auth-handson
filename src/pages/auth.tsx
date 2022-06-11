@@ -1,11 +1,30 @@
 import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
+import { useState, useContext } from 'react'
+import { GithubAuthProvider, signInWithPopup } from "firebase/auth";
+
+import { AuthContext } from "../contexts/AuthContext"
+import { auth } from "../firebase"
 
 const Auth: NextPage = () => {
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+  const user = useContext(AuthContext)
+
+  if (user) {
+    router.push('/')
+  }
+
+  const handleOnClick = async () => {
+    setLoading(true)
+    const provider = new GithubAuthProvider();
+    await signInWithPopup(auth, provider)
+    setLoading(false)
+  }
+
   return (
     <main>
-      Auth 🚀
-      <label for="email">email</label>
-      <input type="text" id="email" name="email" requiredminlength="4" maxlength="8" size="10" />
+      <button onClick={handleOnClick}>Login with GitHub</button>
     </main>
   )
 }
