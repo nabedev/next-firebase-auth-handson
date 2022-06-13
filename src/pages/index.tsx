@@ -11,6 +11,10 @@ import { auth } from "../firebase"
 const Home: NextPage = () => {
   const user = useContext(AuthContext)
 
+  if (user === undefined) {
+    return <h1>loading...</h1>
+  }
+
   const logout = async () => {
     await auth.signOut()
   }
