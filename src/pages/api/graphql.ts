@@ -1,7 +1,7 @@
 import { NextApiResponse, NextApiRequest } from "next"
 import { ApolloServer } from 'apollo-server-micro'
-import { typeDefs } from "../../apollo/type-defs"
-import { resolvers } from "../../apollo/resolvers"
+import { typeDefs } from "../../backend/apollo/type-defs"
+import { resolvers } from "../../backend/apollo/resolvers"
 
 const apolloServer = new ApolloServer({
   typeDefs,
