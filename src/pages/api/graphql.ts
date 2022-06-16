@@ -1,7 +1,7 @@
+import { NextApiResponse, NextApiRequest } from "next"
 import { ApolloServer } from 'apollo-server-micro'
 import { typeDefs } from "../../apollo/type-defs"
 import { resolvers } from "../../apollo/resolvers"
-import { schema } from '../../apollo/schema'
 
 const apolloServer = new ApolloServer({
   typeDefs,
@@ -10,6 +10,8 @@ const apolloServer = new ApolloServer({
   async context({ req }) {
     const token = req.headers.authorization || '';
     console.log({token})
+
+    // TODO: verify token with Firebase Admin SDK
   },
 })
 
@@ -19,7 +21,14 @@ export const config = {
   },
 }
 
+const startServer = apolloServer.start();
 
-export default apolloServer.start().then(() => {
-  return apolloServer.createHandler({ path: '/api/graphql' })
-})
+export default async function (
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  await startServer;
+  await apolloServer.createHandler({
+    path: "/api/graphql",
+  })(req, res);
+}
