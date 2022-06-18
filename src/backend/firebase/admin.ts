@@ -1,13 +1,18 @@
-import { initializeApp, applicationDefault } from 'firebase-admin/app'
+import * as admin from "firebase-admin"
+import { applicationDefault, initializeApp } from 'firebase-admin/app'
 import { getAuth } from 'firebase-admin/auth'
 
-const app = initializeApp({
-  credential: applicationDefault(),
-})
+// console.log(admin.apps.length)
 
-const auth = getAuth(app)
+const getAdmin = (): admin.app.App => {
+  if (admin.apps.length === 0) {
+    return admin.initializeApp({
+      credential: applicationDefault(),
+    })
+  }
 
-export {
-  app,
-  auth
+  return admin.apps[0]
 }
+
+const app = getAdmin()
+export const auth = getAuth(app)

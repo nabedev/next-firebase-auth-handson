@@ -1,17 +1,23 @@
+import Cors from "micro-cors"
+import { send } from "micro"
 import { NextApiResponse, NextApiRequest } from "next"
 import { ApolloServer } from 'apollo-server-micro'
 import { typeDefs } from "../../backend/apollo/type-defs"
 import { resolvers } from "../../backend/apollo/resolvers"
 
+import {auth} from "../../backend/firebase/admin"
+
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
-  csrfPrevention: true,
-  async context({ req }) {
+  // csrfPrevention: true,
+  context: async ({ req, res }) => {
     const token = req.headers.authorization || '';
-    console.log({token})
 
-    // TODO: verify token with Firebase Admin SDK
+    if (!token) throw new AuthenticationError('you must be logged in');
+
+    // // TODO: verify token with Firebase Admin SDK
+    const {uid} = await auth.verifyIdToken(token)
   },
 })
 
@@ -23,12 +29,17 @@ export const config = {
 
 const startServer = apolloServer.start();
 
-export default async function (
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  await startServer;
+const cors = Cors()
+
+export default cors(async (req: MicroRequest, res: ServerResponse) => {
+  if (req.method === 'OPTIONS') {
+    res.end()
+    return false
+  }
+  await startServer
+
   await apolloServer.createHandler({
-    path: "/api/graphql",
-  })(req, res);
-}
+    path: '/api/graphql',
+  })(req, res)
+})
+
