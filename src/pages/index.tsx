@@ -19,6 +19,7 @@ const Home: NextPage = () => {
 
   if (!user) {
     router.push('/auth')
+    return
   }
 
   const logout = async () => {
