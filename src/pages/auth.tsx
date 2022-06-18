@@ -1,10 +1,10 @@
+import { GithubAuthProvider, signInWithPopup } from 'firebase/auth'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { useState, useContext } from 'react'
-import { GithubAuthProvider, signInWithPopup } from "firebase/auth";
+import { useContext, useState } from 'react'
 
-import { AuthContext } from "../contexts/AuthContext"
-import { auth } from "../firebase"
+import { AuthContext } from '../contexts/AuthContext'
+import { auth } from '../firebase'
 
 const Auth: NextPage = () => {
   const [loading, setLoading] = useState(false)
@@ -17,7 +17,7 @@ const Auth: NextPage = () => {
 
   const handleOnClick = async () => {
     setLoading(true)
-    const provider = new GithubAuthProvider();
+    const provider = new GithubAuthProvider()
     await signInWithPopup(auth, provider)
     setLoading(false)
   }

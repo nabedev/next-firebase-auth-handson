@@ -1,4 +1,4 @@
-import * as admin from "firebase-admin"
+import * as admin from 'firebase-admin'
 import { applicationDefault, initializeApp } from 'firebase-admin/app'
 import { getAuth } from 'firebase-admin/auth'
 
