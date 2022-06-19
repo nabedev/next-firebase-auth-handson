@@ -15,6 +15,8 @@ const Auth: NextPage = () => {
     router.push('/')
   }
 
+  if (loading) return <p>Loading...</p>
+
   const handleOnClick = async () => {
     setLoading(true)
     const provider = new GithubAuthProvider()

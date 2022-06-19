@@ -1,16 +1,17 @@
+import { ApolloProvider } from '@apollo/client'
 import type { AppProps } from 'next/app'
 
-import { ApolloGqlProvider } from '../contexts/ApolloContext'
+import { client } from '../contexts/ApolloContext'
 import { AuthProvider } from '../contexts/AuthContext'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ApolloGqlProvider>
+    <ApolloProvider client={client}>
       <AuthProvider>
         <Component {...pageProps} />
       </AuthProvider>
-    </ApolloGqlProvider>
+    </ApolloProvider>
   )
 }
 

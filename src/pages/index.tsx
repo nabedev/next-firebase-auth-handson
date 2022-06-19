@@ -1,8 +1,6 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import { a, useRouter } from 'next/router'
-import { useContext, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useContext } from 'react'
 
 import TodoList from '../components/todo-list'
 import { AuthContext } from '../contexts/AuthContext'
@@ -19,7 +17,6 @@ const Home: NextPage = () => {
 
   if (!user) {
     router.push('/auth')
-    return
   }
 
   const logout = async () => {
