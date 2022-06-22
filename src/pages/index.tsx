@@ -24,7 +24,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div class="container mx-auto">
+    <div className="container mx-auto">
      <Navbar />
       <p>
         {user && user.email}

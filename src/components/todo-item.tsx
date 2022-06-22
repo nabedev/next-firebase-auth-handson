@@ -16,25 +16,25 @@ const TodoItem: React.FC<{title: string}> = ({ title }) => {
 
   return (
     <>
-      <div class="flex items-center gap-x-2">
+      <div className="flex items-center gap-x-2">
         <input
           type="checkbox"
           checked={checked}
-          class="checkbox checkbox-accent checkbox-md"
+          className="checkbox checkbox-accent checkbox-md"
           onClick={handleClick}
         />
         <input
           type="text"
           disabled={checked}
           placeholder="Type here"
-          class="input input-md w-full max-w-xs"
+          className="input input-md w-full max-w-xs"
           value={value}
           onChange={handleChange}
         />
-        <button class="btn btn-sm btn-square btn-outline">
+        <button className="btn btn-sm btn-square btn-outline">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
+            className="h-5 w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
