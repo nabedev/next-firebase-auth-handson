@@ -2,8 +2,8 @@ import { gql, useQuery } from '@apollo/client'
 import { useState } from 'react'
 import * as React from 'react'
 
-import TodoItem from "./todo-item";
-import TodoInput from "./todo-input";
+import TodoInput from './todo-input'
+import TodoItem from './todo-item'
 
 type Todo = {
   id: number
@@ -36,12 +36,14 @@ const TodoList: React.FC = () => {
   }
 
   return (
-      <div class="flex flex-col gap-y-8 items-center">
+    <div class="flex flex-col gap-y-8 items-center">
       <TodoInput />
-      {data.todos.map((val, key) => (
-        <TodoItem title={val.title} />
-      ))}
-      </div>
+      {loading ? (
+        <progress class="progress w-56"></progress>
+      ) : (
+        data.todos.map((val, key) => <TodoItem title={val.title} />)
+      )}
+    </div>
   )
 }
 

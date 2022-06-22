@@ -5,7 +5,9 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    container: {
+      center: true,
+    },
   },
   plugins: [require('daisyui')],
 }
