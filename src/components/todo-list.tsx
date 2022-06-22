@@ -1,5 +1,9 @@
 import { gql, useQuery } from '@apollo/client'
+import { useState } from 'react'
 import * as React from 'react'
+
+import TodoItem from "./todo-item";
+import TodoInput from "./todo-input";
 
 type Todo = {
   id: number
@@ -12,6 +16,7 @@ type QueryData = {
 }
 
 const TodoList: React.FC = () => {
+  const [checked, setChecked] = useState(false)
   const { loading, error, data } = useQuery<QueryData>(gql`
     query ExampleQuery {
       todos {
@@ -21,17 +26,22 @@ const TodoList: React.FC = () => {
   `)
   console.log({ data })
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <progress class="progress w-56"></progress>
   if (error) return <p>Error : {error.message}</p>
 
   if (data === undefined) return <p>no todos</p>
 
+  const handleClick = () => {
+    setChecked(!checked)
+  }
+
   return (
-    <ul>
+      <div class="flex flex-col gap-y-8 items-center">
+      <TodoInput />
       {data.todos.map((val, key) => (
-        <li key={key}>{val.title}</li>
+        <TodoItem title={val.title} />
       ))}
-    </ul>
+      </div>
   )
 }
 
