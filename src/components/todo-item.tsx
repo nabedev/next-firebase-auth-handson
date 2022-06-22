@@ -26,7 +26,6 @@ const TodoItem: React.FC<{title: string}> = ({ title }) => {
         <input
           type="text"
           disabled={checked}
-          placeholder="Type here"
           className="input input-md w-full max-w-xs"
           value={value}
           onChange={handleChange}

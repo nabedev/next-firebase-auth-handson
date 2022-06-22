@@ -1,9 +1,12 @@
 import { ApolloServer } from 'apollo-server-micro'
 import Cors from 'micro-cors'
+import { MongoClient, ServerApiVersion } from 'mongodb'
 
 import { resolvers } from '../../backend/apollo/resolvers'
 import { typeDefs } from '../../backend/apollo/type-defs'
 import { auth } from '../../backend/firebase/admin'
+
+let db
 
 const apolloServer = new ApolloServer({
   typeDefs,
@@ -16,7 +19,26 @@ const apolloServer = new ApolloServer({
 
     // // TODO: verify token with Firebase Admin SDK
     const { uid } = await auth.verifyIdToken(token)
-    console.log({ uid })
+
+    if (!db) {
+      console.log('create new mongo client')
+      try {
+        const client = new MongoClient(process.env.MONGO_DB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+          serverApi: ServerApiVersion.v1,
+        })
+        await client.connect()
+        db = client.db('todo')
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
+    return {
+      uid,
+      db
+    }
   },
 })
 

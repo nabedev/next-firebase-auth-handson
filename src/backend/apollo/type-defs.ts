@@ -2,11 +2,18 @@ import { gql } from 'apollo-server-micro'
 
 export const typeDefs = gql`
   type Todo {
-    id: ID!
+    _id: ID! 
     title: String!
     completed: Boolean!
   }
-  type Query {
+
+  type User {
+    _id: ID!
+    email: String!
     todos: [Todo]
+  }
+
+  type Query {
+    user: User
   }
 `
