@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-micro'
 
 export const typeDefs = gql`
   type Todo {
-    _id: ID! 
+    _id: ID!
     title: String!
     completed: Boolean!
   }
@@ -15,5 +15,10 @@ export const typeDefs = gql`
 
   type Query {
     user: User
+  }
+
+  type Mutation {
+    addTodo(title: String!): Todo
+    updateUser(uid: String, email: String): User
   }
 `

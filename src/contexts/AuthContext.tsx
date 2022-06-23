@@ -18,9 +18,10 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null | undefined>(undefined)
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user)
     })
+    return unsubscribe
   }, [])
 
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>

@@ -1,11 +1,29 @@
-import { gql, useQuery } from '@apollo/client'
+import { gql, useMutation, useQuery } from '@apollo/client'
 import * as React from 'react'
+import { useEffect, useState } from 'react'
 
 import TodoInput from './todo-input'
 import TodoItem from './todo-item'
 
+const ADD_TODO = gql`
+  mutation AddTodo($title: String!) {
+    addTodo(title: $title) {
+      _id
+      title
+      completed
+    }
+  }
+`
+
+type Todo = {
+  _id: string
+  title: string
+  completed: boolean
+}
 
 const TodoList: React.FC = () => {
+  const [todos, setTodos] = useState<Todo[]>([])
+  const [addTodo] = useMutation(ADD_TODO)
   const { loading, error, data } = useQuery(gql`
     query ExampleQuery {
       user {
@@ -19,20 +37,43 @@ const TodoList: React.FC = () => {
     }
   `)
 
+  useEffect(() => {
+    if (loading) return
+    setTodos(data.user?.todos || [])
+  }, [loading])
+
   if (loading) return <progress className="progress w-56"></progress>
   if (error) return <p>Error : {error.message}</p>
 
-  const { todos } = data.user
-  if (todos === undefined) return <p>no todos</p>
+  const handleAddTodo = async (value) => {
+    let newTodo
+    try {
+      newTodo = await addTodo({ variables: { title: value } })
+    } catch (e) {
+      console.log(e)
+    }
+    setTodos([...todos, newTodo.data.addTodo])
+  }
+
+  const renderTodo = () => {
+    if (loading) return <progress className="progress w-56"></progress>
+
+    const hasTodo = todos?.length > 0
+    if (!hasTodo) return <p>Nothing to do ✅</p>
+
+    return (
+      <>
+        {todos.map((val) => (
+          <TodoItem title={val.title} key={val['_id']} />
+        ))}
+      </>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-y-8 items-center">
-      <TodoInput />
-      {loading ? (
-        <progress className="progress w-56"></progress>
-      ) : (
-        todos.map((val, key) => <TodoItem title={val.title} key={key}/>)
-      )}
+      <TodoInput onAddTodo={handleAddTodo} />
+      {renderTodo()}
     </div>
   )
 }

@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import * as React from 'react'
 
-
-const TodoItem: React.FC<{title: string}> = ({ title }) => {
+const TodoItem: React.FC<{ title: string }> = ({ title }) => {
   const [checked, setChecked] = useState(false)
   const [value, setValue] = useState(title)
 
