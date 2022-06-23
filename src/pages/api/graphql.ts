@@ -22,7 +22,7 @@ const apolloServer = new ApolloServer({
     const { uid } = await auth.verifyIdToken(token)
     if (!db) {
       try {
-        const client = new MongoClient(process.env.MONGO_DB_URI as string, {
+        const client = new MongoClient(process.env.MONGODB_URI as string, {
           // useNewUrlParser: true,
           // useUnifiedTopology: true,
           serverApi: "1",
