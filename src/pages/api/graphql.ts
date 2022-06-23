@@ -28,6 +28,7 @@ const apolloServer = new ApolloServer({
           serverApi: "1",
         })
         await client.connect()
+        console.log('client connected')
         db = client.db('todo')
       } catch (e) {
         console.log(e)
@@ -57,6 +58,7 @@ export default cors(async (req, res) => {
     return false
   }
   await startServer
+  console.log('apollo server started')
 
   await apolloServer.createHandler({
     path: '/api/graphql',
