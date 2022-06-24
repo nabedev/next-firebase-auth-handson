@@ -25,7 +25,7 @@ const apolloServer = new ApolloServer({
         const client = new MongoClient(process.env.MONGODB_URI as string, {
           // useNewUrlParser: true,
           // useUnifiedTopology: true,
-          serverApi: "1",
+          serverApi: '1',
         })
         await client.connect()
         console.log('client connected')

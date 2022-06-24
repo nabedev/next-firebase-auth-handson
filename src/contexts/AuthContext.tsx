@@ -1,12 +1,5 @@
 import { User } from 'firebase/auth'
-import {
-  FC,
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 
 import { auth } from '../firebase'
 

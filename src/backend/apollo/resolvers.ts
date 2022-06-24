@@ -1,23 +1,31 @@
-import { v4 as uuidv4 } from 'uuid'
 import { Db } from 'mongodb'
-
+import { v4 as uuidv4 } from 'uuid'
 
 export const resolvers = {
   Query: {
-    user: async (parent, args, context: {db: Db, uid: string}, info) => {
+    user: async (parent, args, context: { db: Db; uid: string }, info) => {
       console.log('user query')
       const user = await context.db
         .collection('users')
         .aggregate([
-          { "$match": { "_id": context.uid} },
-          { "$unwind": "$todos" },
-          { "$match": { "todos.deleted": false }},
-          { "$group": {
-            "_id": "$_id",
-            // "email": "$email",
-            "todos": { "$push": { "_id": "$todos._id", "title": "$todos.title", "completed": "$todos.completed" }}
-        }}
-        ]).toArray()
+          { $match: { _id: context.uid } },
+          { $unwind: '$todos' },
+          { $match: { 'todos.deleted': false } },
+          {
+            $group: {
+              _id: '$_id',
+              // "email": "$email",
+              todos: {
+                $push: {
+                  _id: '$todos._id',
+                  title: '$todos.title',
+                  completed: '$todos.completed',
+                },
+              },
+            },
+          },
+        ])
+        .toArray()
       return user[0]
     },
   },
@@ -47,7 +55,12 @@ export const resolvers = {
         { _id: context.uid },
         {
           $push: {
-            todos: { _id: uid, title: args.title, completed: false, deleted: false },
+            todos: {
+              _id: uid,
+              title: args.title,
+              completed: false,
+              deleted: false,
+            },
           },
         },
         { upsert: true }
@@ -60,10 +73,10 @@ export const resolvers = {
       await context.db.collection('users').updateOne(
         {
           _id: context.uid,
-          'todos._id': args.todoId
+          'todos._id': args.todoId,
         },
         {
-          $set: { "todos.$.deleted" : true }
+          $set: { 'todos.$.deleted': true },
         }
       )
       return true
@@ -73,13 +86,16 @@ export const resolvers = {
       await context.db.collection('users').updateOne(
         {
           _id: context.uid,
-          'todos._id': args.todoId
+          'todos._id': args.todoId,
         },
         {
-          $set: { "todos.$.completed" : args.completed, "todos.$.title": args.title }
+          $set: {
+            'todos.$.completed': args.completed,
+            'todos.$.title': args.title,
+          },
         }
       )
       return true
-    }
+    },
   },
 }

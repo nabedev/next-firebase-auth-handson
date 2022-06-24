@@ -28,7 +28,6 @@ const UPDATE_TODO = gql`
   }
 `
 
-
 type Todo = {
   _id: string
   title: string
@@ -72,12 +71,16 @@ const TodoList: React.FC = () => {
   const handleDelete = async (id: string) => {
     console.log('handledelete')
     await deleteTodo({ variables: { todoId: id } })
-    const newTodos = todos.filter(todo => todo._id !== id)
-    console.log({newTodos})
+    const newTodos = todos.filter((todo) => todo._id !== id)
+    console.log({ newTodos })
     setTodos(newTodos)
   }
 
-  const handleUpdate = async (id: string, title: string, completed: boolean) => {
+  const handleUpdate = async (
+    id: string,
+    title: string,
+    completed: boolean
+  ) => {
     console.log(`updateTodo ${id}, ${title}, ${completed}`)
     await updateTodo({ variables: { todoId: id, title, completed } })
   }
@@ -92,7 +95,14 @@ const TodoList: React.FC = () => {
     return (
       <>
         {todos.map((val) => (
-          <TodoItem title={val.title} id={val['_id']} completed={val.completed} handleDelete={handleDelete} handleUpdate={handleUpdate} key={val._id}/>
+          <TodoItem
+            title={val.title}
+            id={val['_id']}
+            completed={val.completed}
+            handleDelete={handleDelete}
+            handleUpdate={handleUpdate}
+            key={val._id}
+          />
         ))}
       </>
     )

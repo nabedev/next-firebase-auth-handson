@@ -1,19 +1,23 @@
+import { gql, useMutation, useQuery } from '@apollo/client'
 import { useState } from 'react'
 import * as React from 'react'
 
-import { gql, useMutation, useQuery } from '@apollo/client'
-
 type TodoItemProps = {
-  title: string,
-  id: string,
-  handleDelete: (id: string) => void,
-  handleUpdate: (id: string, title: string, completed: boolean) => void,
+  title: string
+  id: string
+  handleDelete: (id: string) => void
+  handleUpdate: (id: string, title: string, completed: boolean) => void
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ title, id, completed, handleDelete, handleUpdate }) => {
+const TodoItem: React.FC<TodoItemProps> = ({
+  title,
+  id,
+  completed,
+  handleDelete,
+  handleUpdate,
+}) => {
   const [checked, setChecked] = useState(completed)
   const [value, setValue] = useState(title)
-
 
   const handleChecked = () => {
     setChecked(!checked)
@@ -39,9 +43,14 @@ const TodoItem: React.FC<TodoItemProps> = ({ title, id, completed, handleDelete,
           className="input input-lg w-full max-w-xs"
           value={value}
           onChange={handleChange}
-          onBlur={() => {handleUpdate(id, value, completed)}}
+          onBlur={() => {
+            handleUpdate(id, value, completed)
+          }}
         />
-        <button className="btn btn-xs btn-circle btn-outline" onClick={() => handleDelete(id)}>
+        <button
+          className="btn btn-xs btn-circle btn-outline"
+          onClick={() => handleDelete(id)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"

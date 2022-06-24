@@ -28,11 +28,14 @@ const TodoInput: React.FC<TodoInputProps> = ({ onAddTodo }) => {
   return (
     <div className="flex flex-col gap-y-8 items-center">
       <div className="form-control">
+        <label class="label">
+          <span class="label-text">What do you do?</span>
+        </label>
         <div className="input-group">
           <input
             type="text"
-            placeholder="Create a new TODO"
-            className="input input-bordered input-lg input-primary w-full max-w-xs"
+            placeholder="Type here"
+            className="input input-bordered input-lg w-full max-w-xs"
             onChange={handleChange}
             onKeyPress={handleKeypress}
             value={value}
@@ -42,7 +45,9 @@ const TodoInput: React.FC<TodoInputProps> = ({ onAddTodo }) => {
             onClick={handleClick}
             disabled={value === ''}
           >
-            Add
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+  <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+</svg>
           </button>
         </div>
       </div>
