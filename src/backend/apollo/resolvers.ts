@@ -14,7 +14,6 @@ export const resolvers = {
           {
             $group: {
               _id: '$_id',
-              // "email": "$email",
               todos: {
                 $push: {
                   _id: '$todos._id',
@@ -38,8 +37,7 @@ export const resolvers = {
         },
         {
           $set: {
-            _id: context.uid,
-            email: args.email,
+            _id: context.uid
           },
         },
         {

@@ -5,6 +5,7 @@ import * as React from 'react'
 type TodoItemProps = {
   title: string
   id: string
+  completed: boolean
   handleDelete: (id: string) => void
   handleUpdate: (id: string, title: string, completed: boolean) => void
 }

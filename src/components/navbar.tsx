@@ -1,16 +1,17 @@
 import * as React from 'react'
+import type { User } from 'firebase/auth'
 
 import { auth } from '../firebase'
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<{user: User | null}> = ({ user }) => {
   return (
-    <div class="navbar bg-base-100">
-      <div class="navbar-start">
-        <div class="dropdown">
-          <label tabindex="0" class="btn btn-ghost btn-circle">
+    <div className="navbar bg-base-100">
+      <div className="navbar-start">
+        <div className="dropdown">
+          <label data-tabindex="0" className="btn btn-ghost btn-circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
+              className="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -24,14 +25,14 @@ const Navbar: React.FC = () => {
             </svg>
           </label>
           <ul
-            tabindex="0"
-            class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 gap-y-8"
+            data-tabindex="0"
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 gap-y-8"
           >
             <li>
-              <button class="btn btn-outline btn-warning">
+              <button className="btn btn-outline btn-warning">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
+                  className="h-5 w-5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -47,15 +48,15 @@ const Navbar: React.FC = () => {
               </button>
             </li>
             <li>
-              <button class="btn btn-outline" onClick={() => auth.signOut()}>Logout</button>
+              {user ? <button className="btn btn-outline" onClick={() => auth.signOut()}>Logout</button> :  <button className="btn btn-outline">LogIn</button> }
             </li>
           </ul>
         </div>
       </div>
-      <div class="navbar-center">
-        <a class="btn btn-ghost normal-case text-xl">Simple TODO!</a>
+      <div className="navbar-center">
+        <a className="btn btn-ghost normal-case text-xl">Simple TODO!</a>
       </div>
-      <div class="navbar-end"></div>
+      <div className="navbar-end"></div>
     </div>
   )
 }

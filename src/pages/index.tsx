@@ -1,16 +1,16 @@
 import { gql, useMutation } from '@apollo/client'
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
 
 import Navbar from '../components/navbar'
 import TodoList from '../components/todo-list'
+import LoginForm from '../components/login-form'
 import { AuthContext } from '../contexts/AuthContext'
-import { auth } from '../firebase'
+
 
 const UPDATE_USER = gql`
-  mutation UpdateUser($uid: String!, $email: String!) {
-    updateUser(uid: $uid, email: $email) {
+  mutation UpdateUser($uid: String!) {
+    updateUser(uid: $uid) {
       _id
     }
   }
@@ -18,7 +18,6 @@ const UPDATE_USER = gql`
 
 const Home: NextPage = () => {
   const user = useContext(AuthContext)
-  const router = useRouter()
   const [updateUser] = useMutation(UPDATE_USER)
 
   useEffect(() => {
@@ -26,7 +25,6 @@ const Home: NextPage = () => {
     updateUser({
       variables: {
         uid: user.uid,
-        email: user.email,
       },
     })
   }, [user])
@@ -35,23 +33,10 @@ const Home: NextPage = () => {
     return <h1>loading...</h1>
   }
 
-  if (!user) {
-    router.push('/auth')
-    return <></>
-  }
-
-  const logout = async () => {
-    await auth.signOut()
-  }
-
   return (
-    <div className="container mx-auto">
-      <Navbar />
-      <p>
-        {user && user.email}
-        {user && <button onClick={logout}>Log out</button>}
-      </p>
-      <TodoList />
+    <div className="container max-w-3xl">
+      <Navbar user={user}/>
+      {user ? <TodoList /> : <LoginForm />}
     </div>
   )
 }

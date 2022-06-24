@@ -109,7 +109,7 @@ const TodoList: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col gap-y-10 items-center my-10">
+    <div className="flex flex-col gap-y-10 items-center">
       <TodoInput onAddTodo={handleAddTodo} />
       {renderTodo()}
     </div>
