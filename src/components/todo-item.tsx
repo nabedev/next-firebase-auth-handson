@@ -1,11 +1,24 @@
 import { useState } from 'react'
 import * as React from 'react'
 
-const TodoItem: React.FC<{ title: string }> = ({ title }) => {
+import { gql, useMutation, useQuery } from '@apollo/client'
+
+const DELETE_TODO = gql`
+  mutation DeleteTodo($todoId: String!) {
+    deleteTodo(todoId: $todoId)
+  }
+`
+
+const TodoItem: React.FC<{ title: string, id: string }> = ({ title, id }) => {
   const [checked, setChecked] = useState(false)
   const [value, setValue] = useState(title)
+  const [deleteTodo] = useMutation(DELETE_TODO)
 
-  const handleClick = () => {
+  const handleDelete = async () => {
+    await deleteTodo({ variables: { todoId: id } })
+  }
+
+  const handleChecked = () => {
     setChecked(!checked)
   }
 
@@ -20,7 +33,7 @@ const TodoItem: React.FC<{ title: string }> = ({ title }) => {
           type="checkbox"
           checked={checked}
           className="checkbox checkbox-accent checkbox-md"
-          onClick={handleClick}
+          onClick={handleChecked}
         />
         <input
           type="text"
@@ -29,7 +42,7 @@ const TodoItem: React.FC<{ title: string }> = ({ title }) => {
           value={value}
           onChange={handleChange}
         />
-        <button className="btn btn-sm btn-square btn-outline">
+        <button className="btn btn-sm btn-square btn-outline" onClick={handleDelete}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"

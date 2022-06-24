@@ -36,12 +36,26 @@ export const resolvers = {
         { _id: context.uid },
         {
           $push: {
-            todos: { _id: uid, title: args.title, completed: false },
+            todos: { _id: uid, title: args.title, completed: false, deleted: false },
           },
         },
         { upsert: true }
       )
       return { _id: uid, title: args.title, completed: false }
     },
+
+    deleteTodo: async (parent, args, context, info) => {
+      console.log(context.todoId)
+      await context.db.collection('users').updateOne(
+        {
+          _id: context.uid,
+          'todos._id': args.todoId
+        },
+        {
+          $set: { "todos.$.deleted" : true }
+        }
+      )
+      return true
+    }
   },
 }

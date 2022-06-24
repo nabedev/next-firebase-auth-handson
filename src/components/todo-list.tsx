@@ -42,9 +42,6 @@ const TodoList: React.FC = () => {
     setTodos(data.user?.todos || [])
   }, [loading])
 
-  if (loading) return <progress className="progress w-56"></progress>
-  if (error) return <p>Error : {error.message}</p>
-
   const handleAddTodo = async (value) => {
     let newTodo
     try {
@@ -57,6 +54,7 @@ const TodoList: React.FC = () => {
 
   const renderTodo = () => {
     if (loading) return <progress className="progress w-56"></progress>
+    if (error) return <p>Error : {error.message}</p>
 
     const hasTodo = todos?.length > 0
     if (!hasTodo) return <p>Nothing to do ✅</p>
@@ -64,7 +62,7 @@ const TodoList: React.FC = () => {
     return (
       <>
         {todos.map((val) => (
-          <TodoItem title={val.title} key={val['_id']} />
+          <TodoItem title={val.title} id={val['_id']} />
         ))}
       </>
     )

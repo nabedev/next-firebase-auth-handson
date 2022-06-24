@@ -5,6 +5,7 @@ export const typeDefs = gql`
     _id: ID!
     title: String!
     completed: Boolean!
+    deleted: Boolean!
   }
 
   type User {
@@ -19,6 +20,7 @@ export const typeDefs = gql`
 
   type Mutation {
     addTodo(title: String!): Todo
+    deleteTodo(todoId: String!): Boolean
     updateUser(uid: String, email: String): User
   }
 `
