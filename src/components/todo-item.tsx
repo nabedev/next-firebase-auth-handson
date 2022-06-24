@@ -39,6 +39,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ title, id, completed, handleDelete,
           className="input input-lg w-full max-w-xs"
           value={value}
           onChange={handleChange}
+          onBlur={() => {handleUpdate(id, value, completed)}}
         />
         <button className="btn btn-xs btn-circle btn-outline" onClick={() => handleDelete(id)}>
           <svg
