@@ -67,6 +67,19 @@ export const resolvers = {
         }
       )
       return true
+    },
+    updateTodo: async (parent, args, context, info) => {
+      console.log(args)
+      await context.db.collection('users').updateOne(
+        {
+          _id: context.uid,
+          'todos._id': args.todoId
+        },
+        {
+          $set: { "todos.$.completed" : args.completed, "todos.$.title": args.title }
+        }
+      )
+      return true
     }
   },
 }

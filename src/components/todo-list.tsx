@@ -1,6 +1,7 @@
 import { gql, useMutation, useQuery } from '@apollo/client'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
+import { callbackify } from 'util'
 
 import TodoInput from './todo-input'
 import TodoItem from './todo-item'
@@ -21,6 +22,12 @@ const DELETE_TODO = gql`
   }
 `
 
+const UPDATE_TODO = gql`
+  mutation UpdateTodo($todoId: String!, $title: String!, $completed: Boolean!) {
+    updateTodo(todoId: $todoId, title: $title, completed: $completed)
+  }
+`
+
 
 type Todo = {
   _id: string
@@ -32,6 +39,8 @@ const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([])
   const [addTodo] = useMutation(ADD_TODO)
   const [deleteTodo] = useMutation(DELETE_TODO)
+  const [updateTodo] = useMutation(UPDATE_TODO)
+
   const { loading, error, data } = useQuery(gql`
     query ExampleQuery {
       user {
@@ -68,6 +77,11 @@ const TodoList: React.FC = () => {
     setTodos(newTodos)
   }
 
+  const handleUpdate = async (id: string, title: string, completed: boolean) => {
+    console.log(`updateTodo ${id}, ${title}, ${completed}`)
+    await updateTodo({ variables: { todoId: id, title, completed } })
+  }
+
   const renderTodo = () => {
     if (loading) return <progress className="progress w-56"></progress>
     if (error) return <p>Error : {error.message}</p>
@@ -78,7 +92,7 @@ const TodoList: React.FC = () => {
     return (
       <>
         {todos.map((val) => (
-          <TodoItem title={val.title} id={val['_id']} handleDelete={handleDelete} key={val._id}/>
+          <TodoItem title={val.title} id={val['_id']} completed={val.completed} handleDelete={handleDelete} handleUpdate={handleUpdate} key={val._id}/>
         ))}
       </>
     )

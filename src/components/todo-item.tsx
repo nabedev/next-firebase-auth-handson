@@ -3,20 +3,21 @@ import * as React from 'react'
 
 import { gql, useMutation, useQuery } from '@apollo/client'
 
-
 type TodoItemProps = {
   title: string,
   id: string,
-  handleDelete: () => void
+  handleDelete: (id: string) => void,
+  handleUpdate: (id: string, title: string, completed: boolean) => void,
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ title, id, handleDelete }) => {
-  const [checked, setChecked] = useState(false)
+const TodoItem: React.FC<TodoItemProps> = ({ title, id, completed, handleDelete, handleUpdate }) => {
+  const [checked, setChecked] = useState(completed)
   const [value, setValue] = useState(title)
 
 
   const handleChecked = () => {
     setChecked(!checked)
+    handleUpdate(id, value, !checked)
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
