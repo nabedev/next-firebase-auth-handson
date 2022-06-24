@@ -32,13 +32,13 @@ const TodoInput: React.FC<TodoInputProps> = ({ onAddTodo }) => {
           <input
             type="text"
             placeholder="Create a new TODO"
-            className="input input-bordered input-info w-full max-w-xs"
+            className="input input-bordered input-lg input-primary w-full max-w-xs"
             onChange={handleChange}
             onKeyPress={handleKeypress}
             value={value}
           />
           <button
-            className="btn btn-info"
+            className="btn btn-primary btn-lg"
             onClick={handleClick}
             disabled={value === ''}
           >

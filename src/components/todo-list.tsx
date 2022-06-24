@@ -15,6 +15,13 @@ const ADD_TODO = gql`
   }
 `
 
+const DELETE_TODO = gql`
+  mutation DeleteTodo($todoId: String!) {
+    deleteTodo(todoId: $todoId)
+  }
+`
+
+
 type Todo = {
   _id: string
   title: string
@@ -24,6 +31,7 @@ type Todo = {
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([])
   const [addTodo] = useMutation(ADD_TODO)
+  const [deleteTodo] = useMutation(DELETE_TODO)
   const { loading, error, data } = useQuery(gql`
     query ExampleQuery {
       user {
@@ -52,6 +60,14 @@ const TodoList: React.FC = () => {
     setTodos([...todos, newTodo.data.addTodo])
   }
 
+  const handleDelete = async (id: string) => {
+    console.log('handledelete')
+    await deleteTodo({ variables: { todoId: id } })
+    const newTodos = todos.filter(todo => todo._id !== id)
+    console.log({newTodos})
+    setTodos(newTodos)
+  }
+
   const renderTodo = () => {
     if (loading) return <progress className="progress w-56"></progress>
     if (error) return <p>Error : {error.message}</p>
@@ -62,14 +78,14 @@ const TodoList: React.FC = () => {
     return (
       <>
         {todos.map((val) => (
-          <TodoItem title={val.title} id={val['_id']} />
+          <TodoItem title={val.title} id={val['_id']} handleDelete={handleDelete} key={val._id}/>
         ))}
       </>
     )
   }
 
   return (
-    <div className="flex flex-col gap-y-8 items-center">
+    <div className="flex flex-col gap-y-10 items-center my-10">
       <TodoInput onAddTodo={handleAddTodo} />
       {renderTodo()}
     </div>

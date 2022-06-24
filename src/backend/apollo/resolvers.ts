@@ -1,12 +1,23 @@
 import { v4 as uuidv4 } from 'uuid'
+import { Db } from 'mongodb'
+
 
 export const resolvers = {
   Query: {
-    user: async (parent, args, context, info) => {
+    user: async (parent, args, context: {db: Db, uid: string}, info) => {
+      console.log('user query')
       const user = await context.db
         .collection('users')
-        .find({ _id: context.uid })
-        .toArray()
+        .aggregate([
+          { "$match": { "_id": context.uid} },
+          { "$unwind": "$todos" },
+          { "$match": { "todos.deleted": false }},
+          { "$group": {
+            "_id": "$_id",
+            // "email": "$email",
+            "todos": { "$push": { "_id": "$todos._id", "title": "$todos.title", "completed": "$todos.completed" }}
+        }}
+        ]).toArray()
       return user[0]
     },
   },
