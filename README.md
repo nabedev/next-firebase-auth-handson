@@ -4,9 +4,11 @@ https://user-images.githubusercontent.com/26590545/175869374-2d71f0cd-f58e-41b8-
 
 Frontend
 - Next.js
+
 Backend
 - Firebase Auth
 - Apollo GraphQL server
+
 DB
 - MongoDB
 
