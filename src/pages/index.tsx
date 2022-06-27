@@ -32,7 +32,7 @@ const Home: NextPage = () => {
   const renderContent = () => {
     // TODO: firebaseのonAuthStateChangedでユーザーを取得中は初期値のundefinedに設定される。
     // AuthContextでloadingの状態を持った方が良さそう。
-    if (user === undefined) return <button class="btn btn-lg btn-ghost loading" />
+    if (user === undefined) return <button className="btn btn-lg btn-ghost loading" />
     if (user === null) return <LoginForm />
     return <TodoList />
   }

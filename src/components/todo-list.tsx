@@ -86,7 +86,7 @@ const TodoList: React.FC = () => {
   }
 
   const renderTodo = () => {
-    if (loading) return <button class="btn btn-lg btn-ghost loading" />
+    if (loading) return <button className="btn btn-lg btn-ghost loading" />
     if (error) return <p>Error : {error.message}</p>
 
     const hasTodo = todos?.length > 0

@@ -3,7 +3,7 @@ import type { User } from 'firebase/auth'
 
 import { auth } from '../firebase'
 
-const Navbar: React.FC<{user: User | null}> = ({ user }) => {
+const Navbar: React.FC<{user: User | null | undefined}> = ({ user }) => {
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
