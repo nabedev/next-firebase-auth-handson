@@ -1,6 +1,4 @@
-import { gql, useMutation, useQuery } from '@apollo/client'
-import { useState } from 'react'
-import * as React from 'react'
+import { FC, useState } from 'react'
 
 type TodoItemProps = {
   title: string
@@ -10,7 +8,7 @@ type TodoItemProps = {
   handleUpdate: (id: string, title: string, completed: boolean) => void
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({
+const TodoItem: FC<TodoItemProps> = ({
   title,
   id,
   completed,

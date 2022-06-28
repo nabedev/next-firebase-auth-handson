@@ -17,8 +17,6 @@ const apolloServer = new ApolloServer({
 
     if (!token) throw new Error('you must be logged in')
 
-    // // TODO: verify token with Firebase Admin SDK
-    // console.log('👮‍♂️ verify token 👮‍♂️')
     const { uid } = await auth.verifyIdToken(token)
     if (!db) {
       try {
@@ -36,7 +34,7 @@ const apolloServer = new ApolloServer({
     }
 
     return {
-      uid,
+      userID: uid,
       db,
     }
   },

@@ -1,11 +1,11 @@
-import * as React from 'react'
+import { FC } from 'react'
 import { useState } from 'react'
 
 type TodoInputProps = {
   onAddTodo: (value: string) => void
 }
 
-const TodoInput: React.FC<TodoInputProps> = ({ onAddTodo }) => {
+const TodoInput: FC<TodoInputProps> = ({ onAddTodo }) => {
   const [value, setValue] = useState('')
 
   const handleChange = (e) => {
@@ -45,9 +45,18 @@ const TodoInput: React.FC<TodoInputProps> = ({ onAddTodo }) => {
             onClick={handleClick}
             disabled={value === ''}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-  <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-</svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                clip-rule="evenodd"
+              />
+            </svg>
           </button>
         </div>
       </div>

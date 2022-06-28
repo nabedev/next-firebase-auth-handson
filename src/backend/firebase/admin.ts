@@ -1,5 +1,4 @@
 import * as admin from 'firebase-admin'
-import { applicationDefault } from 'firebase-admin/app'
 import { getAuth } from 'firebase-admin/auth'
 
 const getAdmin = (): admin.app.App => {
