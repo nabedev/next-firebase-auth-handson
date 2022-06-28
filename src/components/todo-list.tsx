@@ -1,7 +1,5 @@
 import { gql, useMutation, useQuery } from '@apollo/client'
-import * as React from 'react'
-import { useEffect, useState } from 'react'
-import { callbackify } from 'util'
+import { FC, useEffect, useState } from 'react'
 
 import TodoInput from './todo-input'
 import TodoItem from './todo-item'
@@ -34,7 +32,7 @@ type Todo = {
   completed: boolean
 }
 
-const TodoList: React.FC = () => {
+const TodoList: FC = () => {
   const [todos, setTodos] = useState<Todo[]>([])
   const [addTodo] = useMutation(ADD_TODO)
   const [deleteTodo] = useMutation(DELETE_TODO)

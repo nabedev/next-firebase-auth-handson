@@ -8,7 +8,7 @@ export const resolvers = {
       const user = await context.db
         .collection('users')
         .aggregate([
-          { $match: { _id: context.uid } },
+          { $match: { _id: context.userID } },
           { $unwind: '$todos' },
           { $match: { 'todos.deleted': false } },
           {
@@ -25,6 +25,7 @@ export const resolvers = {
           },
         ])
         .toArray()
+      console.log(user[0])
       return user[0]
     },
   },
@@ -33,11 +34,11 @@ export const resolvers = {
     updateUser: async (parent, args, context, info) => {
       await context.db.collection('users').updateOne(
         {
-          _id: context.uid,
+          _id: context.userID,
         },
         {
           $set: {
-            _id: context.uid
+            _id: context.userID,
           },
         },
         {
@@ -48,13 +49,13 @@ export const resolvers = {
     },
 
     addTodo: async (parent, args, context, info) => {
-      const uid = uuidv4()
+      const todoID = uuidv4()
       await context.db.collection('users').updateOne(
-        { _id: context.uid },
+        { _id: context.userID },
         {
           $push: {
             todos: {
-              _id: uid,
+              _id: todoID,
               title: args.title,
               completed: false,
               deleted: false,
@@ -63,14 +64,14 @@ export const resolvers = {
         },
         { upsert: true }
       )
-      return { _id: uid, title: args.title, completed: false }
+      return { _id: todoID, title: args.title, completed: false }
     },
 
     deleteTodo: async (parent, args, context, info) => {
       console.log(context.todoId)
       await context.db.collection('users').updateOne(
         {
-          _id: context.uid,
+          _id: context.userID,
           'todos._id': args.todoId,
         },
         {
@@ -83,7 +84,7 @@ export const resolvers = {
       console.log(args)
       await context.db.collection('users').updateOne(
         {
-          _id: context.uid,
+          _id: context.userID,
           'todos._id': args.todoId,
         },
         {
