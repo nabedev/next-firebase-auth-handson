@@ -5,7 +5,6 @@ query User {
       _id
       title
       completed
-      deleted
     }
   }
 }

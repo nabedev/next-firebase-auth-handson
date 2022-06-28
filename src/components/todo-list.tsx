@@ -29,7 +29,7 @@ const UPDATE_TODO = gql`
 `
 
 const TodoList: FC = () => {
-  const [todos, setTodos] = useState<Todo[]>([])
+  const [todos, setTodos] = useState<Omit<Todo, "deleted">[]>([]) // FIXME
   const [addTodo] = useMutation(ADD_TODO)
   const [deleteTodo] = useMutation(DELETE_TODO)
   const [updateTodo] = useMutation(UPDATE_TODO)
