@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from 'react'
 import TodoInput from './todo-input'
 import TodoItem from './todo-item'
 
-import { useUserQuery } from '../generated/graphql'
+import { useUserQuery, Todo } from '../generated/graphql'
 
 const ADD_TODO = gql`
   mutation AddTodo($title: String!) {
@@ -28,12 +28,6 @@ const UPDATE_TODO = gql`
   }
 `
 
-type Todo = {
-  _id: string
-  title: string
-  completed: boolean
-}
-
 const TodoList: FC = () => {
   const [todos, setTodos] = useState<Todo[]>([])
   const [addTodo] = useMutation(ADD_TODO)
@@ -43,7 +37,7 @@ const TodoList: FC = () => {
 
   useEffect(() => {
     if (loading) return
-    setTodos(data.user?.todos || [])
+    setTodos(data?.user?.todos || [])
   }, [loading])
 
   const handleAddTodo = async (value) => {
@@ -74,7 +68,7 @@ const TodoList: FC = () => {
   }
 
   const renderTodo = () => {
-    if (loading) return <button class="btn btn-lg btn-ghost loading" />
+    if (loading) return <button className="btn btn-lg btn-ghost loading" />
     if (error) return <p>Error : {error.message}</p>
 
     const hasTodo = todos?.length > 0

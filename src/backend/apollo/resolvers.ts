@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 export const resolvers = {
   Query: {
-    user: async (parent, args, context: { db: Db; uid: string }, info) => {
+    user: async (parent, args, context: { db: Db; userID: string }, info) => {
       console.log('user query')
       const user = await context.db
         .collection('users')

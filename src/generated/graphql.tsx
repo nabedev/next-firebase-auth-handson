@@ -62,13 +62,13 @@ export type Todo = {
 export type User = {
   __typename?: 'User';
   _id: Scalars['ID'];
-  todos?: Maybe<Array<Maybe<Todo>>>;
+  todos?: Maybe<Array<Todo>>;
 };
 
 export type UserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', _id: string, todos?: Array<{ __typename?: 'Todo', _id: string, title: string, completed: boolean } | null> | null } | null };
+export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', _id: string, todos?: Array<{ __typename?: 'Todo', _id: string, title: string, completed: boolean, deleted: boolean }> | null } | null };
 
 
 export const UserDocument = gql`
@@ -79,6 +79,7 @@ export const UserDocument = gql`
       _id
       title
       completed
+      deleted
     }
   }
 }
