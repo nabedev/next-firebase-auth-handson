@@ -1,8 +1,10 @@
-import { gql, useMutation, useQuery } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import { FC, useEffect, useState } from 'react'
 
 import TodoInput from './todo-input'
 import TodoItem from './todo-item'
+
+import { useUserQuery } from '../generated/graphql'
 
 const ADD_TODO = gql`
   mutation AddTodo($title: String!) {
@@ -37,19 +39,7 @@ const TodoList: FC = () => {
   const [addTodo] = useMutation(ADD_TODO)
   const [deleteTodo] = useMutation(DELETE_TODO)
   const [updateTodo] = useMutation(UPDATE_TODO)
-
-  const { loading, error, data } = useQuery(gql`
-    query ExampleQuery {
-      user {
-        _id
-        todos {
-          _id
-          title
-          completed
-        }
-      }
-    }
-  `)
+  const { data, loading, error } = useUserQuery()
 
   useEffect(() => {
     if (loading) return

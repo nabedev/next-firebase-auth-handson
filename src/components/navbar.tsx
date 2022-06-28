@@ -3,11 +3,7 @@ import { FC } from 'react'
 
 import { auth } from '../firebase'
 
-<<<<<<< Updated upstream
-const Navbar: React.FC<{user: User | null}> = ({ user }) => {
-=======
 const Navbar: FC<{ user: User | null | undefined }> = ({ user }) => {
->>>>>>> Stashed changes
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start"></div>

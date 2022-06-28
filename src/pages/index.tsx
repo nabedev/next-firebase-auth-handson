@@ -21,6 +21,8 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (!user) return
+    user.getIdToken().then(s => console.log(s))
+    console.log(`uid: ${user.uid}`)
     // TODO: Firebase Authenticationでユーザーが作成された時にFunctions等でDBに登録した方が良さそう。
     // 面倒なので後回し。
     updateUser({
@@ -33,12 +35,8 @@ const Home: NextPage = () => {
   const renderContent = () => {
     // TODO: firebaseのonAuthStateChangedでユーザーを取得中は初期値のundefinedに設定される。
     // AuthContextでloadingの状態を持った方が良さそう。
-<<<<<<< Updated upstream
-    if (user === undefined) return <button class="btn btn-lg btn-ghost loading" />
-=======
     if (user === undefined)
       return <button className="btn btn-lg btn-ghost loading" />
->>>>>>> Stashed changes
     if (user === null) return <LoginForm />
     return <TodoList />
   }
