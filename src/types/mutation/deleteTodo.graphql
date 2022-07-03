@@ -1,0 +1,11 @@
+mutation DeleteTodo($todoId: ID!) {
+  deleteTodo(todoId: $todoId) {
+    _id
+    todos {
+      _id
+      title
+      completed
+      deleted
+    }
+  }
+}

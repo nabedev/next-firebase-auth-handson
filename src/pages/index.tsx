@@ -4,40 +4,48 @@ import { useContext, useEffect } from 'react'
 
 import LoginForm from '../components/login-form'
 import Navbar from '../components/navbar'
+import TodoInput from '../components/todo-input'
 import TodoList from '../components/todo-list'
 import { AuthContext } from '../contexts/AuthContext'
+import { useAddTodoMutation, useUserQuery, useUpdateUserMutation } from '../generated/graphql'
 
-const UPDATE_USER = gql`
-  mutation UpdateUser($uid: String!) {
-    updateUser(uid: $uid) {
-      _id
-    }
-  }
-`
 
 const Home: NextPage = () => {
   const user = useContext(AuthContext)
-  const [updateUser] = useMutation(UPDATE_USER)
+  const { data, loading, error } = useUserQuery()
+  const [addTodoMutation] = useAddTodoMutation()
+  const [updateUser] = useUpdateUserMutation()
 
   useEffect(() => {
-    if (!user) return
-    user.getIdToken().then(s => console.log(s))
-    console.log(`uid: ${user.uid}`)
     // TODO: Firebase Authenticationでユーザーが作成された時にFunctions等でDBに登録した方が良さそう。
     // 面倒なので後回し。
+    if (!user) return
     updateUser({
       variables: {
-        uid: user.uid,
+      userID: user.uid,
       },
     })
   }, [user])
 
+  const handleAddTodo = async (title: string) => {
+    try {
+      await addTodoMutation({ variables: { title } })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   const renderContent = () => {
-    // TODO: firebaseのonAuthStateChangedでユーザーを取得中は初期値のundefinedに設定される。
-    // AuthContextでloadingの状態を持った方が良さそう。
-    if (user === undefined) return <button className="btn btn-lg btn-ghost loading" />
-    if (user === null) return <LoginForm />
-    return <TodoList />
+    if (loading) return <button className="btn btn-lg btn-ghost loading" />
+    if (error) return <p>Error : {error.message}</p>
+
+    console.log('index render')
+    return (
+      <div className="flex flex-col gap-y-10 items-center">
+        <TodoInput onAddTodo={handleAddTodo} />
+        <TodoList todos={data?.user?.todos || []} />
+      </div>
+    )
   }
 
   return (

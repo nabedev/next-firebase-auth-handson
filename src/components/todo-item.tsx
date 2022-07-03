@@ -1,26 +1,26 @@
 import { FC, useState } from 'react'
 
-type TodoItemProps = {
+type Props = {
   title: string
   id: string
   completed: boolean
-  handleDelete: (id: string) => void
-  handleUpdate: (id: string, title: string, completed: boolean) => void
+  onDelete: (id: string) => void
+  onUpdate: (id: string, title: string, completed: boolean) => void
 }
 
-const TodoItem: FC<TodoItemProps> = ({
+const TodoItem: FC<Props> = ({
   title,
   id,
   completed,
-  handleDelete,
-  handleUpdate,
+  onDelete,
+  onUpdate,
 }) => {
   const [checked, setChecked] = useState(completed)
   const [value, setValue] = useState(title)
 
   const handleChecked = () => {
     setChecked(!checked)
-    handleUpdate(id, value, !checked)
+    onUpdate(id, value, !checked)
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +35,7 @@ const TodoItem: FC<TodoItemProps> = ({
           checked={checked}
           className="checkbox checkbox-accent checkbox-md"
           onClick={handleChecked}
+          readOnly
         />
         <input
           type="text"
@@ -43,12 +44,12 @@ const TodoItem: FC<TodoItemProps> = ({
           value={value}
           onChange={handleChange}
           onBlur={() => {
-            handleUpdate(id, value, completed)
+            onUpdate(id, value, completed)
           }}
         />
         <button
           className="btn btn-xs btn-circle btn-outline"
-          onClick={() => handleDelete(id)}
+          onClick={() => onDelete(id)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

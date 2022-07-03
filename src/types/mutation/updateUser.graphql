@@ -1,0 +1,5 @@
+mutation UpdateUser($userID: ID!) {
+  updateUser(userID: $userID) {
+    _id
+  }
+}

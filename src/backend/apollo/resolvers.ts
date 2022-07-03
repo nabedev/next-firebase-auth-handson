@@ -1,32 +1,12 @@
 import { Db } from 'mongodb'
 import { v4 as uuidv4 } from 'uuid'
 
+import { getUser } from '../mongodb/utils'
+
 export const resolvers = {
   Query: {
     user: async (parent, args, context: { db: Db; userID: string }, info) => {
-      console.log('user query')
-      const user = await context.db
-        .collection('users')
-        .aggregate([
-          { $match: { _id: context.userID } },
-          { $unwind: '$todos' },
-          { $match: { 'todos.deleted': false } },
-          {
-            $group: {
-              _id: '$_id',
-              todos: {
-                $push: {
-                  _id: '$todos._id',
-                  title: '$todos.title',
-                  completed: '$todos.completed',
-                },
-              },
-            },
-          },
-        ])
-        .toArray()
-      console.log(user[0])
-      return user[0]
+      return await getUser(context.db, context.userID)
     },
   },
 
@@ -45,7 +25,7 @@ export const resolvers = {
           upsert: true,
         }
       )
-      return { _id: args.uid }
+      return await getUser(context.db, context.userID)
     },
 
     addTodo: async (parent, args, context, info) => {
@@ -64,11 +44,10 @@ export const resolvers = {
         },
         { upsert: true }
       )
-      return { _id: todoID, title: args.title, completed: false }
+      return await getUser(context.db, context.userID)
     },
 
     deleteTodo: async (parent, args, context, info) => {
-      console.log(context.todoId)
       await context.db.collection('users').updateOne(
         {
           _id: context.userID,
@@ -78,10 +57,9 @@ export const resolvers = {
           $set: { 'todos.$.deleted': true },
         }
       )
-      return true
+      return await getUser(context.db, context.userID)
     },
     updateTodo: async (parent, args, context, info) => {
-      console.log(args)
       await context.db.collection('users').updateOne(
         {
           _id: context.userID,
@@ -94,7 +72,7 @@ export const resolvers = {
           },
         }
       )
-      return true
+      return await getUser(context.db, context.userID)
     },
   },
 }
