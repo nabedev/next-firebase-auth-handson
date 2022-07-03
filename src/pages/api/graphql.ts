@@ -1,6 +1,8 @@
-import { ApolloServer } from 'apollo-server-micro'
+import { ApolloServer, gql } from 'apollo-server-micro'
+import { readFileSync } from 'fs'
 import Cors from 'micro-cors'
 import { Db, MongoClient } from 'mongodb'
+import { resolve } from 'path'
 
 import { resolvers } from '../../backend/apollo/resolvers'
 import { typeDefs } from '../../backend/apollo/type-defs'
@@ -9,7 +11,9 @@ import { auth } from '../../backend/firebase/admin'
 let db: Db
 
 const apolloServer = new ApolloServer({
-  typeDefs,
+  typeDefs: gql(readFileSync(
+    resolve(process.cwd(), './graphql/schema.graphql')
+  ).toString()),
   resolvers,
   // csrfPrevention: true,
   context: async ({ req }) => {
@@ -18,6 +22,7 @@ const apolloServer = new ApolloServer({
     if (!token) throw new Error('you must be logged in')
 
     const { uid } = await auth.verifyIdToken(token)
+
     if (!db) {
       try {
         const client = new MongoClient(process.env.MONGODB_URI as string, {
@@ -26,7 +31,6 @@ const apolloServer = new ApolloServer({
           serverApi: '1',
         })
         await client.connect()
-        console.log('client connected')
         db = client.db('todo')
       } catch (e) {
         console.log(e)
@@ -56,7 +60,6 @@ export default cors(async (req, res) => {
     return false
   }
   await startServer
-  console.log('apollo server started')
 
   await apolloServer.createHandler({
     path: '/api/graphql',
