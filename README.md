@@ -1,4 +1,4 @@
-https://user-images.githubusercontent.com/26590545/175869374-2d71f0cd-f58e-41b8-9fa4-c76677e4022d.mov
+![preview](https://user-images.githubusercontent.com/26590545/177315753-ec55e865-3423-425f-8e4e-d963f2b176b9.png)
 
 
 
