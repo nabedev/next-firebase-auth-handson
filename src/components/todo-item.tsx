@@ -8,13 +8,7 @@ type Props = {
   onUpdate: (id: string, title: string, completed: boolean) => void
 }
 
-const TodoItem: FC<Props> = ({
-  title,
-  id,
-  completed,
-  onDelete,
-  onUpdate,
-}) => {
+const TodoItem: FC<Props> = ({ title, id, completed, onDelete, onUpdate }) => {
   const [checked, setChecked] = useState(completed)
   const [value, setValue] = useState(title)
 

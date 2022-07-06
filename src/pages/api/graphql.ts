@@ -11,9 +11,9 @@ import { auth } from '../../backend/firebase/admin'
 let db: Db
 
 const apolloServer = new ApolloServer({
-  typeDefs: gql(readFileSync(
-    resolve(process.cwd(), './graphql/schema.graphql')
-  ).toString()),
+  typeDefs: gql(
+    readFileSync(resolve(process.cwd(), './graphql/schema.graphql')).toString()
+  ),
   resolvers,
   // csrfPrevention: true,
   context: async ({ req }) => {

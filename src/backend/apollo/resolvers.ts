@@ -1,16 +1,16 @@
-import { Db } from 'mongodb'
+import { Db, ObjectId } from 'mongodb'
 import { v4 as uuidv4 } from 'uuid'
 
 import { getUser } from '../mongodb/utils'
 
 export const resolvers = {
   Query: {
-    user: async (parent, args, context: { db: Db; userID: string }, info) => {
+    user: async (parent, args, context: { db: Db; userID: ObjectId }, info) => {
       const user = await getUser(context.db, context.userID)
       if (user === null) {
         const doc = {
           _id: context.userID,
-          todos: []
+          todos: [],
         }
         await context.db.collection('users').insertOne(doc)
         return doc
@@ -28,7 +28,7 @@ export const resolvers = {
         {
           $set: {
             _id: context.userID,
-            todos: []
+            todos: [],
           },
         },
         {

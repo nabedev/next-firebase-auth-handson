@@ -1,7 +1,13 @@
 import { gql, useMutation } from '@apollo/client'
 import { FC, useEffect, useState } from 'react'
 
-import { Todo, useAddTodoMutation, useUserQuery, useDeleteTodoMutation, useUpdateTodoMutation } from '../generated/graphql'
+import {
+  Todo,
+  useAddTodoMutation,
+  useDeleteTodoMutation,
+  useUpdateTodoMutation,
+  useUserQuery,
+} from '../generated/graphql'
 import TodoInput from './todo-input'
 import TodoItem from './todo-item'
 

@@ -37,16 +37,18 @@ const LoginForm: FC = () => {
     <div className="container max-w-md text-center">
       <div className="flex h-screen">
         <div className="m-auto">
-          <h1 class="text-5xl font-bold">Please Log in!</h1>
-          <p class="py-6">This certification uses Firebase Authentication!</p>
-          <div class="flex flex-col w-full border-opacity-50">
+          <h1 className="text-5xl font-bold">Please Log in!</h1>
+          <p className="py-6">
+            This certification uses Firebase Authentication!
+          </p>
+          <div className="flex flex-col w-full border-opacity-50">
             <button
               className="btn btn-lg btn-primary normal-case gap-2"
               onClick={loginWithAnonymously}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5"
+                className="h-5 w-5"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -59,7 +61,7 @@ const LoginForm: FC = () => {
               Continue with Anonnimously
             </button>
 
-            <div class="divider">OR</div>
+            <div className="divider">OR</div>
             <button
               className="btn btn-lg normal-case gap-2"
               onClick={loginWithGithub}

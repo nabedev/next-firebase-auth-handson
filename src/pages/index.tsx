@@ -7,8 +7,11 @@ import Navbar from '../components/navbar'
 import TodoInput from '../components/todo-input'
 import TodoList from '../components/todo-list'
 import { AuthContext } from '../contexts/AuthContext'
-import { useAddTodoMutation, useUserQuery, useUpdateUserMutation } from '../generated/graphql'
-
+import {
+  useAddTodoMutation,
+  useUpdateUserMutation,
+  useUserQuery,
+} from '../generated/graphql'
 
 const Home: NextPage = () => {
   const user = useContext(AuthContext)
@@ -29,7 +32,7 @@ const Home: NextPage = () => {
     if (error) return <p>Error : {error.message}</p>
 
     return (
-      <div className="flex flex-col gap-y-10 items-center">
+      <div className="flex flex-col gap-y-10 items-center mt-12">
         <TodoInput onAddTodo={handleAddTodo} />
         <TodoList todos={data?.user?.todos || []} />
       </div>

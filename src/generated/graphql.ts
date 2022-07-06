@@ -1,119 +1,178 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions = {} as const;
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+
+export type Maybe<T> = T | null
+export type InputMaybe<T> = Maybe<T>
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K]
+}
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>
+}
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>
+}
+const defaultOptions = {} as const
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-};
+  ID: string
+  String: string
+  Boolean: boolean
+  Int: number
+  Float: number
+}
 
 export type Mutation = {
-  __typename?: 'Mutation';
-  addTodo?: Maybe<User>;
-  deleteTodo?: Maybe<User>;
-  updateTodo?: Maybe<User>;
-  updateUser?: Maybe<User>;
-};
-
+  __typename?: 'Mutation'
+  addTodo?: Maybe<User>
+  deleteTodo?: Maybe<User>
+  updateTodo?: Maybe<User>
+  updateUser?: Maybe<User>
+}
 
 export type MutationAddTodoArgs = {
-  title: Scalars['String'];
-};
-
+  title: Scalars['String']
+}
 
 export type MutationDeleteTodoArgs = {
-  todoId: Scalars['ID'];
-};
-
+  todoId: Scalars['ID']
+}
 
 export type MutationUpdateTodoArgs = {
-  completed: Scalars['Boolean'];
-  title: Scalars['String'];
-  todoId: Scalars['ID'];
-};
-
+  completed: Scalars['Boolean']
+  title: Scalars['String']
+  todoId: Scalars['ID']
+}
 
 export type MutationUpdateUserArgs = {
-  userID: Scalars['ID'];
-};
+  userID: Scalars['ID']
+}
 
 export type Query = {
-  __typename?: 'Query';
-  user?: Maybe<User>;
-};
+  __typename?: 'Query'
+  user?: Maybe<User>
+}
 
 export type Todo = {
-  __typename?: 'Todo';
-  _id: Scalars['ID'];
-  completed: Scalars['Boolean'];
-  deleted: Scalars['Boolean'];
-  title: Scalars['String'];
-};
+  __typename?: 'Todo'
+  _id: Scalars['ID']
+  completed: Scalars['Boolean']
+  deleted: Scalars['Boolean']
+  title: Scalars['String']
+}
 
 export type User = {
-  __typename?: 'User';
-  _id: Scalars['ID'];
-  todos?: Maybe<Array<Maybe<Todo>>>;
-};
+  __typename?: 'User'
+  _id: Scalars['ID']
+  todos: Array<Todo>
+}
 
 export type AddTodoMutationVariables = Exact<{
-  title: Scalars['String'];
-}>;
+  title: Scalars['String']
+}>
 
-
-export type AddTodoMutation = { __typename?: 'Mutation', addTodo?: { __typename?: 'User', _id: string, todos?: Array<{ __typename?: 'Todo', _id: string, title: string, completed: boolean, deleted: boolean } | null> | null } | null };
+export type AddTodoMutation = {
+  __typename?: 'Mutation'
+  addTodo?: {
+    __typename?: 'User'
+    _id: string
+    todos: Array<{
+      __typename?: 'Todo'
+      _id: string
+      title: string
+      completed: boolean
+      deleted: boolean
+    }>
+  } | null
+}
 
 export type DeleteTodoMutationVariables = Exact<{
-  todoId: Scalars['ID'];
-}>;
+  todoId: Scalars['ID']
+}>
 
-
-export type DeleteTodoMutation = { __typename?: 'Mutation', deleteTodo?: { __typename?: 'User', _id: string, todos?: Array<{ __typename?: 'Todo', _id: string, title: string, completed: boolean, deleted: boolean } | null> | null } | null };
+export type DeleteTodoMutation = {
+  __typename?: 'Mutation'
+  deleteTodo?: {
+    __typename?: 'User'
+    _id: string
+    todos: Array<{
+      __typename?: 'Todo'
+      _id: string
+      title: string
+      completed: boolean
+      deleted: boolean
+    }>
+  } | null
+}
 
 export type UpdateTodoMutationVariables = Exact<{
-  todoId: Scalars['ID'];
-  title: Scalars['String'];
-  completed: Scalars['Boolean'];
-}>;
+  todoId: Scalars['ID']
+  title: Scalars['String']
+  completed: Scalars['Boolean']
+}>
 
-
-export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo?: { __typename?: 'User', _id: string, todos?: Array<{ __typename?: 'Todo', _id: string, title: string, completed: boolean, deleted: boolean } | null> | null } | null };
+export type UpdateTodoMutation = {
+  __typename?: 'Mutation'
+  updateTodo?: {
+    __typename?: 'User'
+    _id: string
+    todos: Array<{
+      __typename?: 'Todo'
+      _id: string
+      title: string
+      completed: boolean
+      deleted: boolean
+    }>
+  } | null
+}
 
 export type UpdateUserMutationVariables = Exact<{
-  userID: Scalars['ID'];
-}>;
+  userID: Scalars['ID']
+}>
 
+export type UpdateUserMutation = {
+  __typename?: 'Mutation'
+  updateUser?: {
+    __typename?: 'User'
+    _id: string
+    todos: Array<{ __typename?: 'Todo'; _id: string; title: string }>
+  } | null
+}
 
-export type UpdateUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'User', _id: string, todos?: Array<{ __typename?: 'Todo', _id: string, title: string } | null> | null } | null };
+export type UserQueryVariables = Exact<{ [key: string]: never }>
 
-export type UserQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', _id: string, todos?: Array<{ __typename?: 'Todo', _id: string, title: string, completed: boolean, deleted: boolean } | null> | null } | null };
-
+export type UserQuery = {
+  __typename?: 'Query'
+  user?: {
+    __typename?: 'User'
+    _id: string
+    todos: Array<{
+      __typename?: 'Todo'
+      _id: string
+      title: string
+      completed: boolean
+      deleted: boolean
+    }>
+  } | null
+}
 
 export const AddTodoDocument = gql`
-    mutation AddTodo($title: String!) {
-  addTodo(title: $title) {
-    _id
-    todos {
+  mutation AddTodo($title: String!) {
+    addTodo(title: $title) {
       _id
-      title
-      completed
-      deleted
+      todos {
+        _id
+        title
+        completed
+        deleted
+      }
     }
   }
-}
-    `;
-export type AddTodoMutationFn = Apollo.MutationFunction<AddTodoMutation, AddTodoMutationVariables>;
+`
+export type AddTodoMutationFn = Apollo.MutationFunction<
+  AddTodoMutation,
+  AddTodoMutationVariables
+>
 
 /**
  * __useAddTodoMutation__
@@ -132,27 +191,41 @@ export type AddTodoMutationFn = Apollo.MutationFunction<AddTodoMutation, AddTodo
  *   },
  * });
  */
-export function useAddTodoMutation(baseOptions?: Apollo.MutationHookOptions<AddTodoMutation, AddTodoMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddTodoMutation, AddTodoMutationVariables>(AddTodoDocument, options);
-      }
-export type AddTodoMutationHookResult = ReturnType<typeof useAddTodoMutation>;
-export type AddTodoMutationResult = Apollo.MutationResult<AddTodoMutation>;
-export type AddTodoMutationOptions = Apollo.BaseMutationOptions<AddTodoMutation, AddTodoMutationVariables>;
+export function useAddTodoMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AddTodoMutation,
+    AddTodoMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<AddTodoMutation, AddTodoMutationVariables>(
+    AddTodoDocument,
+    options
+  )
+}
+export type AddTodoMutationHookResult = ReturnType<typeof useAddTodoMutation>
+export type AddTodoMutationResult = Apollo.MutationResult<AddTodoMutation>
+export type AddTodoMutationOptions = Apollo.BaseMutationOptions<
+  AddTodoMutation,
+  AddTodoMutationVariables
+>
 export const DeleteTodoDocument = gql`
-    mutation DeleteTodo($todoId: ID!) {
-  deleteTodo(todoId: $todoId) {
-    _id
-    todos {
+  mutation DeleteTodo($todoId: ID!) {
+    deleteTodo(todoId: $todoId) {
       _id
-      title
-      completed
-      deleted
+      todos {
+        _id
+        title
+        completed
+        deleted
+      }
     }
   }
-}
-    `;
-export type DeleteTodoMutationFn = Apollo.MutationFunction<DeleteTodoMutation, DeleteTodoMutationVariables>;
+`
+export type DeleteTodoMutationFn = Apollo.MutationFunction<
+  DeleteTodoMutation,
+  DeleteTodoMutationVariables
+>
 
 /**
  * __useDeleteTodoMutation__
@@ -171,27 +244,43 @@ export type DeleteTodoMutationFn = Apollo.MutationFunction<DeleteTodoMutation, D
  *   },
  * });
  */
-export function useDeleteTodoMutation(baseOptions?: Apollo.MutationHookOptions<DeleteTodoMutation, DeleteTodoMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteTodoMutation, DeleteTodoMutationVariables>(DeleteTodoDocument, options);
-      }
-export type DeleteTodoMutationHookResult = ReturnType<typeof useDeleteTodoMutation>;
-export type DeleteTodoMutationResult = Apollo.MutationResult<DeleteTodoMutation>;
-export type DeleteTodoMutationOptions = Apollo.BaseMutationOptions<DeleteTodoMutation, DeleteTodoMutationVariables>;
+export function useDeleteTodoMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteTodoMutation,
+    DeleteTodoMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeleteTodoMutation, DeleteTodoMutationVariables>(
+    DeleteTodoDocument,
+    options
+  )
+}
+export type DeleteTodoMutationHookResult = ReturnType<
+  typeof useDeleteTodoMutation
+>
+export type DeleteTodoMutationResult = Apollo.MutationResult<DeleteTodoMutation>
+export type DeleteTodoMutationOptions = Apollo.BaseMutationOptions<
+  DeleteTodoMutation,
+  DeleteTodoMutationVariables
+>
 export const UpdateTodoDocument = gql`
-    mutation UpdateTodo($todoId: ID!, $title: String!, $completed: Boolean!) {
-  updateTodo(todoId: $todoId, title: $title, completed: $completed) {
-    _id
-    todos {
+  mutation UpdateTodo($todoId: ID!, $title: String!, $completed: Boolean!) {
+    updateTodo(todoId: $todoId, title: $title, completed: $completed) {
       _id
-      title
-      completed
-      deleted
+      todos {
+        _id
+        title
+        completed
+        deleted
+      }
     }
   }
-}
-    `;
-export type UpdateTodoMutationFn = Apollo.MutationFunction<UpdateTodoMutation, UpdateTodoMutationVariables>;
+`
+export type UpdateTodoMutationFn = Apollo.MutationFunction<
+  UpdateTodoMutation,
+  UpdateTodoMutationVariables
+>
 
 /**
  * __useUpdateTodoMutation__
@@ -212,25 +301,41 @@ export type UpdateTodoMutationFn = Apollo.MutationFunction<UpdateTodoMutation, U
  *   },
  * });
  */
-export function useUpdateTodoMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTodoMutation, UpdateTodoMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateTodoMutation, UpdateTodoMutationVariables>(UpdateTodoDocument, options);
-      }
-export type UpdateTodoMutationHookResult = ReturnType<typeof useUpdateTodoMutation>;
-export type UpdateTodoMutationResult = Apollo.MutationResult<UpdateTodoMutation>;
-export type UpdateTodoMutationOptions = Apollo.BaseMutationOptions<UpdateTodoMutation, UpdateTodoMutationVariables>;
+export function useUpdateTodoMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateTodoMutation,
+    UpdateTodoMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateTodoMutation, UpdateTodoMutationVariables>(
+    UpdateTodoDocument,
+    options
+  )
+}
+export type UpdateTodoMutationHookResult = ReturnType<
+  typeof useUpdateTodoMutation
+>
+export type UpdateTodoMutationResult = Apollo.MutationResult<UpdateTodoMutation>
+export type UpdateTodoMutationOptions = Apollo.BaseMutationOptions<
+  UpdateTodoMutation,
+  UpdateTodoMutationVariables
+>
 export const UpdateUserDocument = gql`
-    mutation UpdateUser($userID: ID!) {
-  updateUser(userID: $userID) {
-    _id
-    todos {
+  mutation UpdateUser($userID: ID!) {
+    updateUser(userID: $userID) {
       _id
-      title
+      todos {
+        _id
+        title
+      }
     }
   }
-}
-    `;
-export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, UpdateUserMutationVariables>;
+`
+export type UpdateUserMutationFn = Apollo.MutationFunction<
+  UpdateUserMutation,
+  UpdateUserMutationVariables
+>
 
 /**
  * __useUpdateUserMutation__
@@ -249,26 +354,39 @@ export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, U
  *   },
  * });
  */
-export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, options);
-      }
-export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
-export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
-export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
+export function useUpdateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateUserMutation,
+    UpdateUserMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
+    UpdateUserDocument,
+    options
+  )
+}
+export type UpdateUserMutationHookResult = ReturnType<
+  typeof useUpdateUserMutation
+>
+export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
+  UpdateUserMutation,
+  UpdateUserMutationVariables
+>
 export const UserDocument = gql`
-    query User {
-  user {
-    _id
-    todos {
+  query User {
+    user {
       _id
-      title
-      completed
-      deleted
+      todos {
+        _id
+        title
+        completed
+        deleted
+      }
     }
   }
-}
-    `;
+`
 
 /**
  * __useUserQuery__
@@ -285,14 +403,21 @@ export const UserDocument = gql`
  *   },
  * });
  */
-export function useUserQuery(baseOptions?: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<UserQuery, UserQueryVariables>(UserDocument, options);
-      }
-export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQuery, UserQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<UserQuery, UserQueryVariables>(UserDocument, options);
-        }
-export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
-export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
-export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
+export function useUserQuery(
+  baseOptions?: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<UserQuery, UserQueryVariables>(UserDocument, options)
+}
+export function useUserLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<UserQuery, UserQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<UserQuery, UserQueryVariables>(
+    UserDocument,
+    options
+  )
+}
+export type UserQueryHookResult = ReturnType<typeof useUserQuery>
+export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>
+export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>
