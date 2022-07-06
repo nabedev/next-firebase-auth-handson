@@ -1,5 +1,9 @@
 mutation UpdateUser($userID: ID!) {
   updateUser(userID: $userID) {
     _id
+    todos {
+      _id
+      title
+    }
   }
 }

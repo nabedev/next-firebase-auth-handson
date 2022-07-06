@@ -6,7 +6,16 @@ import { getUser } from '../mongodb/utils'
 export const resolvers = {
   Query: {
     user: async (parent, args, context: { db: Db; userID: string }, info) => {
-      return await getUser(context.db, context.userID)
+      const user = await getUser(context.db, context.userID)
+      if (user === null) {
+        const doc = {
+          _id: context.userID,
+          todos: []
+        }
+        await context.db.collection('users').insertOne(doc)
+        return doc
+      }
+      return user
     },
   },
 
@@ -19,6 +28,7 @@ export const resolvers = {
         {
           $set: {
             _id: context.userID,
+            todos: []
           },
         },
         {

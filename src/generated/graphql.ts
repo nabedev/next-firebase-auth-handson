@@ -61,7 +61,7 @@ export type Todo = {
 export type User = {
   __typename?: 'User';
   _id: Scalars['ID'];
-  todos?: Maybe<Array<Todo>>;
+  todos?: Maybe<Array<Maybe<Todo>>>;
 };
 
 export type AddTodoMutationVariables = Exact<{
@@ -69,14 +69,14 @@ export type AddTodoMutationVariables = Exact<{
 }>;
 
 
-export type AddTodoMutation = { __typename?: 'Mutation', addTodo?: { __typename?: 'User', _id: string, todos?: Array<{ __typename?: 'Todo', _id: string, title: string, completed: boolean, deleted: boolean }> | null } | null };
+export type AddTodoMutation = { __typename?: 'Mutation', addTodo?: { __typename?: 'User', _id: string, todos?: Array<{ __typename?: 'Todo', _id: string, title: string, completed: boolean, deleted: boolean } | null> | null } | null };
 
 export type DeleteTodoMutationVariables = Exact<{
   todoId: Scalars['ID'];
 }>;
 
 
-export type DeleteTodoMutation = { __typename?: 'Mutation', deleteTodo?: { __typename?: 'User', _id: string, todos?: Array<{ __typename?: 'Todo', _id: string, title: string, completed: boolean, deleted: boolean }> | null } | null };
+export type DeleteTodoMutation = { __typename?: 'Mutation', deleteTodo?: { __typename?: 'User', _id: string, todos?: Array<{ __typename?: 'Todo', _id: string, title: string, completed: boolean, deleted: boolean } | null> | null } | null };
 
 export type UpdateTodoMutationVariables = Exact<{
   todoId: Scalars['ID'];
@@ -85,19 +85,19 @@ export type UpdateTodoMutationVariables = Exact<{
 }>;
 
 
-export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo?: { __typename?: 'User', _id: string, todos?: Array<{ __typename?: 'Todo', _id: string, title: string, completed: boolean, deleted: boolean }> | null } | null };
+export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo?: { __typename?: 'User', _id: string, todos?: Array<{ __typename?: 'Todo', _id: string, title: string, completed: boolean, deleted: boolean } | null> | null } | null };
 
 export type UpdateUserMutationVariables = Exact<{
   userID: Scalars['ID'];
 }>;
 
 
-export type UpdateUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'User', _id: string } | null };
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'User', _id: string, todos?: Array<{ __typename?: 'Todo', _id: string, title: string } | null> | null } | null };
 
 export type UserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', _id: string, todos?: Array<{ __typename?: 'Todo', _id: string, title: string, completed: boolean, deleted: boolean }> | null } | null };
+export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', _id: string, todos?: Array<{ __typename?: 'Todo', _id: string, title: string, completed: boolean, deleted: boolean } | null> | null } | null };
 
 
 export const AddTodoDocument = gql`
@@ -223,6 +223,10 @@ export const UpdateUserDocument = gql`
     mutation UpdateUser($userID: ID!) {
   updateUser(userID: $userID) {
     _id
+    todos {
+      _id
+      title
+    }
   }
 }
     `;

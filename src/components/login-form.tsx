@@ -35,9 +35,6 @@ const LoginForm: FC = () => {
 
   return (
     <div className="flex flex-col gap-y-10">
-      <button className="btn btn-lg btn-outline" disabled>
-        Continue with Google
-      </button>
       <button className="btn btn-lg btn-outline" onClick={loginWithGithub}>
         Continue with GitHub
       </button>

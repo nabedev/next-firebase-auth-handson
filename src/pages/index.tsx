@@ -16,17 +16,6 @@ const Home: NextPage = () => {
   const [addTodoMutation] = useAddTodoMutation()
   const [updateUser] = useUpdateUserMutation()
 
-  useEffect(() => {
-    // TODO: Firebase Authenticationでユーザーが作成された時にFunctions等でDBに登録した方が良さそう。
-    // 面倒なので後回し。
-    if (!user) return
-    updateUser({
-      variables: {
-      userID: user.uid,
-      },
-    })
-  }, [user])
-
   const handleAddTodo = async (title: string) => {
     try {
       await addTodoMutation({ variables: { title } })
