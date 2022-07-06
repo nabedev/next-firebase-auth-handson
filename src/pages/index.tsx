@@ -28,7 +28,6 @@ const Home: NextPage = () => {
     if (loading) return <button className="btn btn-lg btn-ghost loading" />
     if (error) return <p>Error : {error.message}</p>
 
-    console.log('index render')
     return (
       <div className="flex flex-col gap-y-10 items-center">
         <TodoInput onAddTodo={handleAddTodo} />
