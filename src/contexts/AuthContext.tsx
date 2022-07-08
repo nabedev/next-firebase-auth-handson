@@ -1,25 +1,35 @@
 import { User } from 'firebase/auth'
 import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 
+import Loading from '../components/loading'
 import LoginForm from '../components/login-form'
 import { auth } from '../firebase'
 
-export type AuthContextProps = User | null | undefined
+export type AuthContextProps = {
+  user: User | null | undefined
+  loading: boolean
+}
 
-export const AuthContext = createContext<AuthContextProps>(undefined)
+export const AuthContext = createContext<AuthContextProps>({
+  user: undefined,
+  loading: true,
+})
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null | undefined>(undefined)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user)
+      setLoading(false)
     })
     return unsubscribe
   }, [])
 
-  if (user === undefined) return <p>loading...</p>
-  if (user === null) return <LoginForm />
-
-  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ user, loading }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }

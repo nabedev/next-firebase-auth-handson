@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import { auth } from '../firebase'
 
-const Navbar: FC<{ user: User | null | undefined }> = ({ user }) => {
+const Navbar: FC = () => {
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -17,9 +17,9 @@ const Navbar: FC<{ user: User | null | undefined }> = ({ user }) => {
               stroke="currentColor"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M4 6h16M4 12h16M4 18h7"
               />
             </svg>

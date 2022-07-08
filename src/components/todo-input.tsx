@@ -2,10 +2,11 @@ import { FC } from 'react'
 import { useState } from 'react'
 
 type TodoInputProps = {
+  disabled: boolean
   onAddTodo: (value: string) => void
 }
 
-const TodoInput: FC<TodoInputProps> = ({ onAddTodo }) => {
+const TodoInput: FC<TodoInputProps> = ({ onAddTodo, disabled }) => {
   const [value, setValue] = useState('')
 
   const handleChange = (e) => {
@@ -39,6 +40,7 @@ const TodoInput: FC<TodoInputProps> = ({ onAddTodo }) => {
             onChange={handleChange}
             onKeyPress={handleKeypress}
             value={value}
+            disabled={disabled}
           />
           <button
             className="btn btn-primary btn-lg"
@@ -52,9 +54,9 @@ const TodoInput: FC<TodoInputProps> = ({ onAddTodo }) => {
               fill="currentColor"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               />
             </svg>
           </button>
