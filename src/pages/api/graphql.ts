@@ -5,13 +5,11 @@ import { Db, MongoClient } from 'mongodb'
 import { resolve } from 'path'
 
 import { resolvers } from '../../backend/apollo/resolvers'
-import { typeDefs } from '../../backend/apollo/type-defs'
 import { auth } from '../../backend/firebase/admin'
 
 let db: Db
 
 const apolloServer = new ApolloServer({
-  typeDefs: gql(
     readFileSync(resolve(process.cwd(), './graphql/schema.graphql')).toString()
   ),
   resolvers,
