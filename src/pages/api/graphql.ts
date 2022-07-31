@@ -2,18 +2,19 @@ import { ApolloServer, gql } from 'apollo-server-micro'
 import { readFileSync } from 'fs'
 import Cors from 'micro-cors'
 import { Db, MongoClient } from 'mongodb'
-import { resolve } from 'path'
+import * as path from 'path'
 
 import { resolvers } from '../../backend/apollo/resolvers'
 import { auth } from '../../backend/firebase/admin'
 
 let db: Db
 
+const typeDefs = readFileSync(path.resolve(process.cwd(), './graphql/schema.graphql')).toString()
+
 const apolloServer = new ApolloServer({
-    readFileSync(resolve(process.cwd(), './graphql/schema.graphql')).toString()
-  ),
+  typeDefs,
   resolvers,
-  // csrfPrevention: true,
+  csrfPrevention: true,
   context: async ({ req }) => {
     const token = req.headers.authorization || ''
 
