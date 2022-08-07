@@ -9,7 +9,9 @@ import { auth } from '../../backend/firebase/admin'
 
 let db: Db
 
-const typeDefs = readFileSync(path.resolve(process.cwd(), './graphql/schema.graphql')).toString()
+const typeDefs = readFileSync(
+  path.resolve(process.cwd(), './graphql/schema.graphql')
+).toString()
 
 const apolloServer = new ApolloServer({
   typeDefs,
@@ -23,17 +25,17 @@ const apolloServer = new ApolloServer({
     const { uid } = await auth.verifyIdToken(token)
 
     if (!db) {
-      try {
-        const client = new MongoClient(process.env.MONGODB_URI as string, {
-          // useNewUrlParser: true,
-          // useUnifiedTopology: true,
-          serverApi: '1',
-        })
-        await client.connect()
-        db = client.db('todo')
-      } catch (e) {
-        console.log(e)
-      }
+      console.log(process.env.MONGODB_URI)
+
+      const client = new MongoClient(process.env.MONGODB_URI as string, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        serverApi: '1',
+      })
+
+      await client.connect()
+      console.log('mongoDB client connected ⭐️')
+      db = client.db('todo')
     }
 
     return {

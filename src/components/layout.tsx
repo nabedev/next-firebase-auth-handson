@@ -26,8 +26,10 @@ export default function Layout({ children }) {
   }
 
   return (
-    <div className="container max-w-3xl text-center">
-      {renderContentByAuthState()}
+    <div className="flex h-screen">
+      <div className="m-auto text-center">
+        {children}
+      </div>
     </div>
   )
 }

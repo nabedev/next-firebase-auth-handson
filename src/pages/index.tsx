@@ -27,6 +27,10 @@ const Home: NextPage = () => {
     }
   }
 
+  if (true) return <div className="flex items-center gap-x-1">
+    <Loading />
+    Getting User Information...
+  </div>
   if (error) return <p>Error : {error.message}</p>
 
   return (
