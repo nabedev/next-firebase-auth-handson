@@ -27,6 +27,8 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     return unsubscribe
   }, [])
 
+  if (loading) return <Loading text='Initializing user' />
+
   return (
     <AuthContext.Provider value={{ user, loading }}>
       {children}

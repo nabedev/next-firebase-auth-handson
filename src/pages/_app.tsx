@@ -9,11 +9,11 @@ import '../styles/globals.css'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
-      <AuthProvider>
         <Layout>
+      <AuthProvider>
           <Component {...pageProps} />
-        </Layout>
       </AuthProvider>
+        </Layout>
     </ApolloProvider>
   )
 }

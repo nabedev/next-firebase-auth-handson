@@ -27,10 +27,7 @@ const Home: NextPage = () => {
     }
   }
 
-  if (true) return <div className="flex items-center gap-x-1">
-    <Loading />
-    Getting User Information...
-  </div>
+  if (loading) return <Loading text='Fetching todo list...'/>
   if (error) return <p>Error : {error.message}</p>
 
   return (
