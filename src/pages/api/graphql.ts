@@ -28,8 +28,6 @@ const apolloServer = new ApolloServer({
       console.log(process.env.MONGODB_URI)
 
       const client = new MongoClient(process.env.MONGODB_URI as string, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
         serverApi: '1',
       })
 

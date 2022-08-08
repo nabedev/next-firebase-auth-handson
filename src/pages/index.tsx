@@ -3,7 +3,6 @@ import type { NextPage } from 'next'
 import { useContext, useEffect } from 'react'
 
 import Loading from '../components/loading'
-import LoginForm from '../components/login-form'
 import Navbar from '../components/navbar'
 import TodoInput from '../components/todo-input'
 import TodoList from '../components/todo-list'
@@ -27,7 +26,7 @@ const Home: NextPage = () => {
     }
   }
 
-  if (loading) return <Loading text='Fetching todo list...'/>
+  if (loading) return <Loading text="Fetching todo list..." />
   if (error) return <p>Error : {error.message}</p>
 
   return (

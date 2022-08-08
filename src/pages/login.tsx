@@ -1,16 +1,21 @@
+import { useRouter } from 'next/router'
+import type { NextPage } from 'next'
+
 import {
   GithubAuthProvider,
   signInAnonymously,
   signInWithRedirect,
 } from 'firebase/auth'
-import { FC, useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 
 import Loading from '../components/loading'
 import { AuthContext } from '../contexts/AuthContext'
 import { auth } from '../firebase'
 
-const LoginForm: FC = () => {
+const LoginForm: NextPage = () => {
   const [loading, setLoading] = useState(false)
+  const user = useContext(AuthContext)
+  const router = useRouter()
 
   const loginWithGithub = async () => {
     setLoading(true)
@@ -23,6 +28,12 @@ const LoginForm: FC = () => {
     setLoading(true)
     await signInAnonymously(auth)
     setLoading(false)
+  }
+
+  if (user) {
+    console.log('user')
+    router.push('/')
+    return <></>
   }
 
   if (loading) return <Loading />

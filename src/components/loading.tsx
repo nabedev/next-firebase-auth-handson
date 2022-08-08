@@ -5,9 +5,7 @@ type Props = {
 }
 
 const Loading: FC<Props> = ({ text }) => {
-  return (
-    <button class="btn btn-ghost loading normal-case">{text}</button>
-  )
+  return <button className="btn btn-ghost loading normal-case">{text}</button>
 }
 
 export default Loading
