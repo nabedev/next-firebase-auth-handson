@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { User } from 'firebase/auth'
 import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 
@@ -11,9 +12,13 @@ export const AuthContext = createContext<AuthContextType>(undefined)
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<AuthContextType>(undefined)
   const [loading, setLoading] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (!user) {
+        router.push('/login')
+      }
       setUser(user)
       setLoading(false)
     })

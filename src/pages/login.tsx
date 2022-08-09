@@ -31,7 +31,6 @@ const LoginForm: NextPage = () => {
   }
 
   if (user) {
-    console.log('user')
     router.push('/')
     return <></>
   }

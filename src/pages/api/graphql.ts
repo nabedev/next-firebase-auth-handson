@@ -25,14 +25,8 @@ const apolloServer = new ApolloServer({
     const { uid } = await auth.verifyIdToken(token)
 
     if (!db) {
-      console.log(process.env.MONGODB_URI)
-
-      const client = new MongoClient(process.env.MONGODB_URI as string, {
-        serverApi: '1',
-      })
-
+      const client = new MongoClient(process.env.MONGODB_URI)
       await client.connect()
-      console.log('mongoDB client connected ⭐️')
       db = client.db('todo')
     }
 
