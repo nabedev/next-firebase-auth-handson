@@ -1,9 +1,11 @@
 import type { User } from 'firebase/auth'
+import { useApolloClient } from '@apollo/client'
 import { FC } from 'react'
 
 import { auth } from '../firebase'
 
 const Navbar: FC = () => {
+  const client = useApolloClient()
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -29,7 +31,14 @@ const Navbar: FC = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a onClick={() => auth.signOut()}>Logout</a>
+              <a
+                onClick={() => {
+                  auth.signOut()
+                  client.resetStore()
+                }}
+              >
+                Logout
+              </a>
             </li>
           </ul>
         </div>
