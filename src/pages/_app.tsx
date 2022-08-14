@@ -1,21 +1,30 @@
-import { ApolloProvider } from '@apollo/client'
+import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 
 import Layout from '../components/layout'
-import { client } from '../contexts/ApolloContext'
 import { AuthProvider } from '../contexts/AuthContext'
+import { ApolloProvider } from '../contexts/ApolloContext'
 import '../styles/globals.css'
 
-function MyApp({ Component, pageProps }: AppProps) {
+export type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>)
+
   return (
-    <ApolloProvider client={client}>
-      <Layout>
+    <ApolloProvider>
+      {getLayout(
         <AuthProvider>
           <Component {...pageProps} />
         </AuthProvider>
-      </Layout>
+      )}
     </ApolloProvider>
   )
 }
-
-export default MyApp

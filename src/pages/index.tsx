@@ -1,8 +1,10 @@
 import { gql, useMutation } from '@apollo/client'
 import type { NextPage } from 'next'
-import { useContext, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { ReactElement, useContext, useEffect } from 'react'
 
 import Loading from '../components/loading'
+import AuthenticatedLayout from '../components/authenticated-layout'
 import Navbar from '../components/navbar'
 import TodoInput from '../components/todo-input'
 import TodoList from '../components/todo-list'
@@ -36,5 +38,9 @@ const Home: NextPage = () => {
     </div>
   )
 }
+
+// Home.getLayout = function getLayout(page: ReactElement) {
+//   return <AuthenticatedLayout>{page}</AuthenticatedLayout>
+// }
 
 export default Home
