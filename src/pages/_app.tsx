@@ -20,11 +20,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <ApolloProvider>
-      {getLayout(
-        <AuthProvider>
-          <Component {...pageProps} />
-        </AuthProvider>
-      )}
+      <AuthProvider>{getLayout(<Component {...pageProps} />)}</AuthProvider>
     </ApolloProvider>
   )
 }

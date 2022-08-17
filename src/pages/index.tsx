@@ -28,19 +28,19 @@ const Home: NextPage = () => {
     }
   }
 
-  if (loading) return <Loading text="Fetching todo list..." />
-  if (error) return <p>Error : {error.message}</p>
+  if (true) return <Loading text="Fetching todo list..." />
+  if (error) return <p>{error.message}</p>
 
   return (
-    <div className="flex flex-col gap-y-10 items-center mt-12">
+    <>
       <TodoInput onAddTodo={handleAddTodo} disabled={loading} />
-      {loading ? <Loading /> : <TodoList todos={data?.user?.todos || []} />}
-    </div>
+      <TodoList todos={data?.user?.todos || []} />
+    </>
   )
 }
 
-// Home.getLayout = function getLayout(page: ReactElement) {
-//   return <AuthenticatedLayout>{page}</AuthenticatedLayout>
-// }
+Home.getLayout = function getLayout(page: ReactElement) {
+  return <AuthenticatedLayout>{page}</AuthenticatedLayout>
+}
 
 export default Home

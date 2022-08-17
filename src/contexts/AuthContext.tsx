@@ -29,6 +29,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   // FIXME: 未認証なら`/login`にリダイレクトするが、`/`にアクセスした場合、pages/index.tsx が一度マウントされ、hooksでクエリが発行されてしまう。
   // マウントせずにリダイレクトさせたいので、未認証かつ`/login`以外へのアクセスでは、本コンポーネント以下をマウントさせないようにundefinedを返している。
+  // たぶん良くない。
   if (!user && router.pathname !== '/login') return undefined
 
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>
