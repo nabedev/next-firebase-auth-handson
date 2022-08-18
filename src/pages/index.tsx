@@ -28,14 +28,17 @@ const Home: NextPage = () => {
     }
   }
 
-  if (true) return <Loading text="Fetching todo list..." />
   if (error) return <p>{error.message}</p>
 
   return (
-    <>
+    <div className="flex flex-col gap-y-10 items-center mt-12">
       <TodoInput onAddTodo={handleAddTodo} disabled={loading} />
-      <TodoList todos={data?.user?.todos || []} />
-    </>
+      {loading ? (
+        <Loading text="Fetching todo list..." />
+      ) : (
+        <TodoList todos={data?.user?.todos || []} />
+      )}
+    </div>
   )
 }
 

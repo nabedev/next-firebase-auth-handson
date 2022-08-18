@@ -35,7 +35,7 @@ const LoginForm: NextPage = () => {
     return <></>
   }
 
-  if (loading) return <Loading />
+  if (loading) return <Loading text="Waiting firebase response..." />
 
   return (
     <>

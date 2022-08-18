@@ -3,6 +3,7 @@ import { User } from 'firebase/auth'
 import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 
 import Loading from '../components/loading'
+import DefaultLayout from '../components/default-layout'
 import { auth } from '../firebase'
 
 export type AuthContextType = User | null | undefined
@@ -25,7 +26,12 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     return unsubscribe
   }, [])
 
-  if (loading) return <Loading text="Initializing user" />
+  if (loading)
+    return (
+      <DefaultLayout>
+        <Loading text="Initializing user" />
+      </DefaultLayout>
+    )
 
   // FIXME: 未認証なら`/login`にリダイレクトするが、`/`にアクセスした場合、pages/index.tsx が一度マウントされ、hooksでクエリが発行されてしまう。
   // マウントせずにリダイレクトさせたいので、未認証かつ`/login`以外へのアクセスでは、本コンポーネント以下をマウントさせないようにundefinedを返している。
