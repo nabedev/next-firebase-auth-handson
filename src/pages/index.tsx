@@ -15,7 +15,9 @@ import {
   useUserQuery,
 } from '../generated/graphql'
 
-const Home: NextPage = () => {
+import type { NextPageWithLayout } from './_app'
+
+const Home: NextPageWithLayout = () => {
   const { data, loading, error } = useUserQuery()
   const [addTodoMutation] = useAddTodoMutation()
   const [updateUser] = useUpdateUserMutation()
