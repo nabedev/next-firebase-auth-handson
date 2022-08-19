@@ -31,8 +31,6 @@ const TodoList: FC<Props> = ({ todos }) => {
     await updateTodo({ variables: { todoId: id, title, completed } })
   }
 
-  if (todos.length === 0) return <p>no todo</p>
-
   return (
     <>
       {todos.map((val) => (

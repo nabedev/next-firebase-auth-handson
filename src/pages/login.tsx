@@ -43,7 +43,7 @@ const LoginForm: NextPage = () => {
       <p className="py-6">This certification uses Firebase Authentication 🚀</p>
       <div className="flex flex-col w-full border-opacity-50">
         <button
-          className="btn btn-lg btn-primary normal-case gap-2"
+          className="btn btn-lg normal-case gap-2 btn-primary"
           onClick={loginWithAnonymously}
         >
           <svg
