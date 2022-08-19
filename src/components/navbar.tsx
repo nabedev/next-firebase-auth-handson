@@ -17,7 +17,7 @@ const Navbar: FC = () => {
         <div className="dropdown dropdown-end">
           <div
             className="tooltip tooltip-bottom"
-            data-tip={user?.displayName || 'Anounimouse'}
+            data-tip={user?.displayName || 'Anonymous'}
           >
             <label
               tabIndex={0}
